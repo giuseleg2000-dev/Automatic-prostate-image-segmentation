@@ -51,7 +51,7 @@ This project aims to demonstrate practical approaches to handling such constrain
 
 ### Data Augmentation strategy
 Data augmentation transform are applied only to training dataset with the following transforms
-''' python
+``` python
     augment_T = [
         # Apply random rotation (range_* is in radians) and flip [0,1] = flip along x and y axes
         RandRotated(keys = ['image','label'], range_x=0.3, range_y=0.3, range_z=0.1, prob=1.0, keep_size=True, mode = ('bilinear','nearest')),
@@ -66,8 +66,9 @@ Data augmentation transform are applied only to training dataset with the follow
         # Noise and smoothing
         RandGaussianNoised(keys = 'image', std = 0.03, prob = 0.15),
     ]
-'''
+```
 ## Structure
+```
 ├── train.py                      # Main training script with K-fold CV
 ├── Preprocessing_kfoldCV.py      # Data loading and augmentation pipeline
 ├── Util.py                       # Training loop and utility functions
@@ -85,3 +86,4 @@ Data augmentation transform are applied only to training dataset with the follow
 │   ├── labelsTr/                 # Training labels
 │   └── imagesTs/                 # Test images
 └── README.md
+```

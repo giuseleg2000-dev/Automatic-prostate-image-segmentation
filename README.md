@@ -69,9 +69,12 @@ Data augmentation transform are applied only to training dataset with the follow
 ```
 ## Structure
 ```
-├── train.py                      # Main training script with K-fold CV
-├── Preprocessing_kfoldCV.py      # Data loading and augmentation pipeline
-├── Util.py                       # Training loop and utility functions
+├── src/
+│   ├── train.py                      # Main training script with K-fold CV
+│   ├── Preprocessing_kfoldCV.py      # Data loading and augmentation pipeline
+│   ├── Util.py                       # Training loop and utility functions
+│   ├── KFoldEnsemble.py              # K fold ensemble class (simple average)
+│   ├── Requirements.txt
 ├── MODEL/                        # Saved models and metrics
 │   ├── fold1/
 │   │   ├── best_metric_model.pth
@@ -85,5 +88,30 @@ Data augmentation transform are applied only to training dataset with the follow
 │   ├── imagesTr/                 # Training images
 │   ├── labelsTr/                 # Training labels
 │   └── imagesTs/                 # Test images
+├── results/
+│   ├── Attention_UNet_results.png                # Plot of metrics 
+│   ├── Attention_UNet_Test_segmentation_i.png    # i=1 to 4 test images 
+│   ├── Test_Attention_UNet.ipynb                 # Test script
+│   ├──  
 └── README.md
 ```
+## Results
+The file in results with extension .ipynb contain the codes needed to check the model results.
+
+### Attention Unet
+![AttentionUNetPlots](results/Attention_UNet_results.png)
+attention Unet results per fold
+| Fold | Best Validation Dice | Epoch | Final Validation Dice | Mean ± Std |
+|:------:|:---------------------:|:-------:|:----------------------:|:------------:|
+| 1    | 0.9195              | 273   | 0.9093               | 0.8137 ± 0.1103 |
+| 2    | 0.8305              | 217   | 0.7984               | 0.7320 ± 0.0809 |
+| 3    | 0.9425              | 298   | 0.9351               | 0.8657 ± 0.1006 |
+| 4    | 0.9420              | 294   | 0.9301               | 0.8555 ± 0.1083 |
+| 5    | 0.9138              | 280   | 0.9103               | 0.8084 ± 0.1184 |
+
+Overall results
+| Metric | Value |
+|:--------:|:-------:|
+| Mean Best Validation Dice | 0.9097 ± 0.0412 |
+| Best Performing Fold | Fold 3 (0.9425) |
+| Worst Performing Fold | Fold 2 (0.8305) |

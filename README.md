@@ -115,6 +115,8 @@ Overall results
 | Metric | Value |
 |:--------:|:-------:|
 | Mean Best Validation Dice | 0.9097 ± 0.0412 |
+| Best Performing Fold | Fold 3 (0.9425) |
+| Worst Performing Fold | Fold 2 (0.8305) |
 
 ### Classic Unet
 ![StandardUNetPlots](results/Standard_UNet_results.png)
@@ -131,5 +133,5 @@ Overall results
 | Metric | Value |
 |:--------:|:-------:|
 | Mean Best Validation Dice | 0.9039 ± 0.0314 |
-| Best Performing Fold | Fold 3 (0.9425) |
-| Worst Performing Fold | Fold 2 (0.8305) |
+| Best Performing Fold | Fold 4 (0.9353) |
+| Worst Performing Fold | Fold 2 (0.8534) |

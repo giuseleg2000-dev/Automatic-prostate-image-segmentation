@@ -94,6 +94,8 @@ Data augmentation transform are applied only to training dataset with the follow
 │   ├── Test_Attention_UNet.ipynb                 # Test script
 │   ├──  
 └── README.md
+└── Test_Standard_UNet.ipynb        # Jupyter notebook for the trained UNet evaluation
+└── Test_Attention_UNet.ipynb       # Jupyter notebook for the trained attention UNet evaluation
 ```
 ## Results
 The file in results with extension .ipynb contain the codes needed to check the model results.
@@ -113,5 +115,21 @@ Overall results
 | Metric | Value |
 |:--------:|:-------:|
 | Mean Best Validation Dice | 0.9097 ± 0.0412 |
+
+### Classic Unet
+![StandardUNetPlots](results/Standard_UNet_results.png)
+classic Unet results per fold
+| Fold | Best Validation Dice | Epoch | Final Validation Dice | Mean ± Std |
+|:------:|:---------------------:|:-------:|:----------------------:|:------------:|
+| 1    | 0.9224             |  279  |  0.8728              | 0.8255 ± 0.0780 |
+| 2    | 0.8534              |  260  |  0.7413              | 0.7052 ± 0.0829 |
+| 3    | 0.9272              |  267  |  0.8812              | 0.8460 ± 0.0873 |
+| 4    | 0.9353              |  266  |  0.9275              | 0.8519 ± 0.0964 |
+| 5    | 0.8814              |  118  |  0.8126              | 0.7917 ± 0.0922 |
+
+Overall results
+| Metric | Value |
+|:--------:|:-------:|
+| Mean Best Validation Dice | 0.9039 ± 0.0314 |
 | Best Performing Fold | Fold 3 (0.9425) |
 | Worst Performing Fold | Fold 2 (0.8305) |

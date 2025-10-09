@@ -29,7 +29,6 @@ from monai.utils.misc import first, set_determinism
 def define_files(in_path):
     '''
     this function returns the dictionaries of training and testing
-    will be used in the preprocessing
     '''
 # Glob will create a list of paths for each file
     train_imgs = sorted(glob(os.path.join(in_path, 'imagesTr', '*.nii.gz')))
@@ -48,16 +47,13 @@ def define_files(in_path):
 def get_transforms(train_files, val_files, test_files, pixdim=(1.5, 1.5, 4.0), a_min=0.0, a_max=1448.00, spatial_size=[128, 128,16], cache=True, augment=True, batch_size=1):
 
     """
-    This function is for preprocessing, it contains basic transforms and data augmentation transforms.
-    It's very important that only the training set gets augmented, validation and obviously testing only get basic transforms
-    16 slices is the minimum slices found in the training volumes. 
-    Note: UNet is composed of both a encoder and a decoder, if you put a number of slices that's not a power of 2 
-    you will get errors in the rounding of the tensors dimensions
-    pixdim: pixel dimension for resample 
+    This function is for preprocessing, it contains only the basic transforms.
+    15 slices is the minimum slices found in the training dataset
+    pixdim: pixel dimension for resample
     a_min and a_max: Intensity scale
     spatial_size: target spatial dimension, 14 slices because it's the minimum viable number of slices found in the dataset
     cache(bool): wether to use Cachedataset
-    augment(bool): wether to use data augmentation transforms
+    augment(bool): wether to use dataaugmentation transforms
     batch_size: Batch size for data loaders
 
     Monai documentation: https://monai.io/docs.html
@@ -151,11 +147,10 @@ def get_transforms(train_files, val_files, test_files, pixdim=(1.5, 1.5, 4.0), a
 
 def create_kfold_split(train_files, n_splits=5, shuffle = True, random_state=42):
     '''
-    create Kfold splits of the training set with scikit - learn
+    create Kfold splits with sklearn
     shuffle: decide to shuffle or not before split,
     random_state: random seed
     '''
     kfold = KFold(n_splits=n_splits, shuffle=shuffle, random_state=random_state)
     return list(kfold.split(train_files))
-    
     

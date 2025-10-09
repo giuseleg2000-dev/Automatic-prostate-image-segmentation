@@ -1,6 +1,6 @@
 import monai.networks.nets as nets
 from monai.networks.layers import Norm
-from monai.losses import DiceLoss, DiceCELoss
+from monai.losses import DiceLoss
 import numpy as np
 import torch
 from Preprocessing_kfoldCV import define_files, get_transforms, create_kfold_split
@@ -25,32 +25,31 @@ def create_model(model_name, device="cuda"):
             channels=(16, 32, 64, 128, 256),
             strides=(2, 2, 2, 2),
         )
-    elif model_name == "unet_plus_plus":
-        model = nets.UnetPlusPlus(
-            spatial_dims=3,
-            in_channels=2,
-            out_channels=2,
-            channels=(16, 32, 64, 128, 256),
-            strides=(2, 2, 2, 2),
-            num_res_units=2, #keep residaual units
-            norm=Norm.BATCH, #keep batch norm
-        )
     elif model_name == 'standard_unet':
-            model = nets.UNet(
-            dimensions = 3, 
+        model = nets.UNet(
+            spatial_dims=3, 
             in_channels = 2, # each slice has 2 channel 
             out_channels = 2, # 2 because is the number of classes we have, foreground+background
             channels = (16, 32, 64, 128, 256), # how many fitters in the convolution block
             strides = (2,2,2,2),
             num_res_units = 2,
             norm = Norm.BATCH,
-            dropout=0.2,  # Add dropout for regularization
+            dropout= 0.2,  # Drop 20% of connections during trainingn
+            )   
+
+    elif model_name == "seg_res_net":
+        model = nets.SegResNet(
+            spatial_dims=3,
+            in_channels=2,
+            out_channels=2,
+            init_filters=16,
+            dropout_prob=0.2,  # Drop 20% of connections during trainingn        
         )
     return model.to(device)
 
 def create_loss_function(device):
     ''' create Loss function '''
-    # loss_function = DiceCELoss(to_onehot_y=True, sigmoid=True, squared_pred=True, ce_weight=calculate_weights(1792651250,2510860).to(device))
+    
     loss_function = DiceLoss(to_onehot_y=True, sigmoid=True, squared_pred=True) 
     
     return loss_function
@@ -229,12 +228,12 @@ def train_single_fold(fold_idx=0, model_name="standard_unet", max_epochs=100, le
         test_interval=1,
         device=device
     )
-################################à
+################################
 
 if __name__ == '__main__':
      print('starting Kfold CV training: \n')
      results = run_kfold_training(          
-          model_name = 'attention_unet',
+          model_name = 'seg_res_net',
           max_epochs = 300, #300
           learning_rate = 1e-4)
 

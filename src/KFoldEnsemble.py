@@ -1,7 +1,7 @@
 import torch
 import os
 # import glob
-from train import create_model
+from train import create_model  # only import related to the function in this project (defines the model used)
 
 class KFoldEnsemble:
     def __init__(self, model_dir, model_name, device, num_folds=5):

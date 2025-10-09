@@ -3,7 +3,7 @@ A deep learning project focused on 3D medical image segmentation using U-Net arc
 
 
 ## 🎯 Project Highlights
-Multiple U-Net Architectures: Standard U-Net, Attention U-Net, and U-Net++
+Multiple U-Net Architectures: Standard U-Net, Attention U-Net, and SegResNet
 Validation: 5-fold cross-validation for reliable performance estimation
 Data Augmentation Pipeline: Comprehensive augmentations tailored for medical imaging
 Small Dataset Optimization: Techniques to maximize learning from limited data (31 volumes)
@@ -45,7 +45,7 @@ This project aims to demonstrate practical approaches to handling such constrain
 ### Models implemented
 1. standard UNet
 2. Attention UNet
-3. UNet++
+3. SegResNet
 ### Loss Function
 * Dice Loss: optimized for segmentation overlap
 
@@ -117,6 +117,25 @@ Overall results
 | Mean Best Validation Dice | 0.9097 ± 0.0412 |
 | Best Performing Fold | Fold 3 (0.9425) |
 | Worst Performing Fold | Fold 2 (0.8305) |
+
+### SegResNet
+
+![SegResNetPlots](results/SegResNet_results.png)
+SegResNet results per fold
+| Fold | Best Validation Dice | Epoch | Final Validation Dice | Mean ± Std |
+|:------:|:---------------------:|:-------:|:----------------------:|:------------:|
+| 1    | 0.9400              | 300   | 0.9400               | 0.8789 ± 0.0894 |
+| 2    | 0.9263              | 291   | 0.9248               | 0.8453 ± 0.1157 |
+| 3    | 0.9483              | 255   | 0.9427               | 0.8842 ± 0.1032 |
+| 4    | 0.9515              | 260   | 0.9466               | 0.8824 ± 0.1087 |
+| 5    | 0.9395               | 298   | 0.9373               | 0.8516 ± 0.1183 |
+
+Overall results
+| Metric | Value |
+|:--------:|:-------:|
+| Mean Best Validation Dice | 0.9411 ± 0.0088 |
+| Best Performing Fold | Fold 4 (0.9515) |
+| Worst Performing Fold | Fold 2 (0.9263) |
 
 ### Classic Unet
 ![StandardUNetPlots](results/Standard_UNet_results.png)
